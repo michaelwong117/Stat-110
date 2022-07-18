@@ -1,0 +1,35 @@
+\documentclass[10pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+ 
+\title{Strategic Practice 1, Fall 2011}
+\author{Michael Wong\\
+Stat 110, Harvard University}
+\maketitle
+ 
+\begin{problem}{1}
+(a) (probability that the total after rolling 4 fair dice is 21) \underline{\hspace{1cm}}
+(probability that the total after rolling 4 fair dice is 22)
+\end{problem}
+
+\begin{proof}[Solution]
+
+(probability that the total after rolling 4 fair dice is 21) $>$
+(probability that the total after rolling 4 fair dice is 22)
+\end{proof}
+
+\begin{proof}[Explanation]
+
+The expected value of the total after rolling one fair die is $21 / 6 = 3.5$. The expected value of the total after rolling four fair dice is thus $3.5 \times 4 = 14$. Since 21 is closer to the expected value than 22, it is the more probable roll.
+\end{proof}
+
+\end{document}

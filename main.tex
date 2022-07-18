@@ -1,0 +1,64 @@
+\documentclass[10pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+\usepackage[parfill]{parskip}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+ 
+\title{Strategic Practice 1, Fall 2011}
+\author{Michael Wong\\
+Stat 110, Harvard University}
+\maketitle
+
+\section{Naive Definition of Probability}
+ 
+\begin{problem}{1} \\ 
+(a) (probability that the total after rolling 4 fair dice is 21) \underline{\hspace{1cm}}
+(probability that the total after rolling 4 fair dice is 22)
+\end{problem}
+
+\begin{proof}[Solution]
+
+(probability that the total after rolling 4 fair dice is 21) $>$
+(probability that the total after rolling 4 fair dice is 22)
+\end{proof}
+
+\begin{proof}[Explanation]
+
+Since the four dice are fair, all \textit{ordered} outcomes are equally likely here. Given 6 numbers on each die and four dice, there are $6^4 = 1296$ possible ordered outcomes.\\ 
+
+The only way to form 21 is, in any order, to roll $(6, 6, 6, 3)$, $(6, 6, 5, 4)$, or $(6, 5, 5, 5)$. One way of thinking about this counting is: \\ 
+
+For $(6, 6, 6, 3)$, there are \(\binom{4}{3}\) ways to choose the 6's, and the remaining number is 3. For $(6, 6, 5, 4)$, there are \(\binom{4}{2}\) to choose the 6's, \(\binom{2}{1}\) ways to choose the 5, and the remaining number is 4. For $(6, 5, 5, 5)$, there are \(\binom{4}{1}\) ways to choose 6, and the remaining numbers are 5. \\
+
+This sums to \(\binom{4}{3} + \binom{4}{2} * \binom{2}{1} + \binom{4}{1} = 20.\) The total probability is then \(\frac{20}{1296}\). \\ 
+
+To get a 22, we need a permutation of $(6, 6, 6, 4)$ ($4! / 3! = 4$ possibilities) or $(6, 6, 5, 5)$ ($4! / (2! \times 2!)) = 6$ possibilities). The total probability is then \(\frac{10}{1296}\), which is less probable than getting a 21. \\
+\end{proof}
+
+\begin{problem}{1} 
+(b) (probability that a random 2 letter word is a palindrome) \underline{\hspace{1cm}}
+(probability that a random 3 letter word is a palindrome)
+\end{problem}
+
+\begin{proof}[Solution]
+
+(probability that a random 2 letter word is a palindrome) $=$
+(probability that a random 3 letter word is a palindrome)
+\end{proof}
+
+\begin{proof}[Explanation]
+There are $26^2 = 676$ possible 2 letter words (order matters for words). For a two letter palindrome, the first letter must match the second. There are 26 possibilities (a...z) for the first letter, and since the second must match, 26 total. The probability that a random 2 letter word is a palindrome is thus \(\frac{26}{676}\). Simplifying, we get \(\frac{1}{26}\). \\
+
+There are $26^3 = 17576$ possible 3 letter words. For a three letter palindrome, the only requirement is that the first letter matches the third. There are 26 possibilities for the first letter (which matches the third), but the second letter can be any letter and also has 26 possibilities. There is thus $26 \times 26$ possible palindromes out of 17576 possible 3 letter words. Again simplifying, we get $676 / 17576 = $ \(\frac{1}{26}\), which is equal to the probability for 2 letter palindromes. \\
+
+
+\end{proof}
+
+\end{document}
