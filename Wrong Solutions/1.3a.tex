@@ -1,0 +1,65 @@
+\documentclass[10pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+\usepackage[parfill]{parskip}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+ 
+\title{Strategic Practice 1, Fall 2011}
+\author{Michael Wong\\
+Stat 110, Harvard University}
+\maketitle
+
+\section{Naive Definition of Probability}
+ 
+
+
+\begin{problem}{3} 
+(a) How many paths are there from the point (0,0) to the point (110, 111) in the plane such that each step either consists of going one unit up or one unit to the right?
+\end{problem}
+
+\begin{question} 
+
+\end{question}
+
+\begin{proof}[Solution]
+\[
+     _{221} P_{110} \text{ paths.}
+\]
+\end{proof}
+
+\begin{proof}[Explanation]
+
+In order to reach (110, 111), you need 110 steps to the right and 111 steps upward, for a total of 221 steps. The number of paths lies in the order the steps are taken (whether you go up first or right first, for example). Thus, we can first choose the order of our 110 steps to the right out of 221 steps. In this case, order matters, and our steps are without replacement: you cannot simply continue stepping to the right, there are only 110 right steps to use. The remaining 111 steps will all be upward. This gives us a result of $_{221} P_{110}$ paths. Note that we can reverse our logic and choose upward steps first, and the result $_{221} P_{111}$ is equivalent.
+
+\end{proof}
+
+
+\begin{question} 
+
+\textbf{(b)} How many paths are there from (0,0) to (210,211), where each step consists of going one unit up or one unit to the right, and the path has to go through (110, 111)?
+
+\end{question}
+
+\begin{proof}[Solution]
+\[
+    _{221} P_{110} \times _{200} P_{100} \text{ paths.}
+\]
+\end{proof}
+
+\begin{proof}[Explanation]
+
+Since paths have to go through (110, 111), let's treat (110, 111) as our new origin. There are  $_{221} P_{110}$ ways to arrive at this origin. From there, we need to reach (210,211), which relative to our new origin is $(210 - 110, 211 - 111)$ or (100, 100). Following the logic of part a, we choose the order of 100 steps out of 200 steps total to arrive at $_{200} P_{100}$. There are $_{200} P_{100}$ ways from our new origin, and $_{221} P_{110}$ ways to arrive at this origin: thus, the total number of paths is
+\[
+        _{221} P_{110} \times _{200} P_{100} \text{ paths.}
+\]
+
+\end{proof}
+
+\end{document}

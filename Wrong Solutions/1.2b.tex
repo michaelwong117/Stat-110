@@ -1,0 +1,48 @@
+\documentclass[10pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+\usepackage[parfill]{parskip}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+ 
+\title{Strategic Practice 1, Fall 2011}
+\author{Michael Wong\\
+Stat 110, Harvard University}
+\maketitle
+
+\section{Naive Definition of Probability}
+
+
+\begin{problem}{2} 
+A random 5 card poker hand is dealt from a standard deck of cards. Find the probability of each of the following (in terms of binomial coefficients). WRONG SOLUTION. 
+\end{problem}
+
+\begin{question} 
+
+\textbf{(b)} Two pair (e.g., two 3's, two 7's, and an Ace)
+
+\end{question}
+
+\begin{proof}[Solution]
+\[
+       \frac{13 \times \binom{4}{2} \times 12 \times \binom{4}{2} \times \binom{48}{1}}{\binom{52}{5}}
+\]
+\end{proof}
+
+\begin{proof}[Explanation]
+
+There are 52 cards total, and order does not matter for card hands, so there are again a total of \(\binom{52}{5}\) possible five-card hands. There are 13 unique types of cards, and 4 of each (e.g., 2, 2, 2, 2) that are possible to pair. We first need to For the first pair, we need to choose a card that we are pairing (13 cards available) and then we need to choose 2 cards out of 4: \(\binom{4}{2}\), so we have $13 \times \binom{4}{2}$. For the second pair, we need to again choose a card that we are pairing (13 - the 1st card = 12 cards available) and then we need to choose 2 cards out of 4: \(\binom{4}{2}\), so we have $12 \times \binom{4}{2}$. For the remaining card, there are 48 cards left and we need to choose 1, so we have $\binom{48}{1}$. Thus, our total probability is
+\[
+       \frac{13 \times \binom{4}{2} \times 12 \times \binom{4}{2} \times \binom{48}{1}}{\binom{52}{5}}
+\]
+
+\end{proof}
+
+
+\end{document}

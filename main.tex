@@ -18,7 +18,7 @@ Stat 110, Harvard University}
 
 \section{Naive Definition of Probability}
  
-\begin{problem}{1} \\ 
+\begin{problem}{1} 
 (a) (probability that the total after rolling 4 fair dice is 21) \underline{\hspace{1cm}}
 (probability that the total after rolling 4 fair dice is 22)
 \end{problem}
@@ -31,13 +31,7 @@ Stat 110, Harvard University}
 
 \begin{proof}[Explanation]
 
-Since the four dice are fair, all \textit{ordered} outcomes are equally likely here. Given 6 numbers on each die and four dice, there are $6^4 = 1296$ possible ordered outcomes.\\ 
-
-The only way to form 21 is, in any order, to roll $(6, 6, 6, 3)$, $(6, 6, 5, 4)$, or $(6, 5, 5, 5)$. One way of thinking about this counting is: \\ 
-
-For $(6, 6, 6, 3)$, there are \(\binom{4}{3}\) ways to choose the 6's, and the remaining number is 3. For $(6, 6, 5, 4)$, there are \(\binom{4}{2}\) to choose the 6's, \(\binom{2}{1}\) ways to choose the 5, and the remaining number is 4. For $(6, 5, 5, 5)$, there are \(\binom{4}{1}\) ways to choose 6, and the remaining numbers are 5. \\
-
-This sums to \(\binom{4}{3} + \binom{4}{2} * \binom{2}{1} + \binom{4}{1} = 20.\) The total probability is then \(\frac{20}{1296}\). \\ 
+Since the four dice are fair, all \textit{ordered} outcomes are equally likely here. Given 6 numbers on each die and four dice, there are $6^4 = 1296$ possible ordered outcomes. The only way to form 21 is, in any order, to roll $(6, 6, 6, 3)$, $(6, 6, 5, 4)$, or $(6, 5, 5, 5)$. One way of thinking about this counting is: for $(6, 6, 6, 3)$, there are \(\binom{4}{3}\) ways to choose the 6's, and the remaining number is 3. For $(6, 6, 5, 4)$, there are \(\binom{4}{2}\) to choose the 6's, \(\binom{2}{1}\) ways to choose the 5, and the remaining number is 4. For $(6, 5, 5, 5)$, there are \(\binom{4}{1}\) ways to choose 6, and the remaining numbers are 5. This sums to \(\binom{4}{3} + \binom{4}{2} * \binom{2}{1} + \binom{4}{1} = 20.\) The total probability is then \(\frac{20}{1296}\).  
 
 To get a 22, we need a permutation of $(6, 6, 6, 4)$ ($4! / 3! = 4$ possibilities) or $(6, 6, 5, 5)$ ($4! / (2! \times 2!)) = 6$ possibilities). The total probability is then \(\frac{10}{1296}\), which is less probable than getting a 21. \\
 \end{proof}
@@ -54,11 +48,184 @@ To get a 22, we need a permutation of $(6, 6, 6, 4)$ ($4! / 3! = 4$ possibilitie
 \end{proof}
 
 \begin{proof}[Explanation]
+
 There are $26^2 = 676$ possible 2 letter words (order matters for words). For a two letter palindrome, the first letter must match the second. There are 26 possibilities (a...z) for the first letter, and since the second must match, 26 total. The probability that a random 2 letter word is a palindrome is thus \(\frac{26}{676}\). Simplifying, we get \(\frac{1}{26}\). \\
 
-There are $26^3 = 17576$ possible 3 letter words. For a three letter palindrome, the only requirement is that the first letter matches the third. There are 26 possibilities for the first letter (which matches the third), but the second letter can be any letter and also has 26 possibilities. There is thus $26 \times 26$ possible palindromes out of 17576 possible 3 letter words. Again simplifying, we get $676 / 17576 = $ \(\frac{1}{26}\), which is equal to the probability for 2 letter palindromes. \\
+There are $26^3 = 17576$ possible 3 letter words. For a three letter palindrome, the only requirement is that the first letter matches the third. There are 26 possibilities for the first letter (which matches the third), but the second letter can be any letter and also has 26 possibilities. There is thus $26 \times 26$ possible palindromes out of 17576 possible 3 letter words. Again simplifying, we get $676 / 17576 = $ \(\frac{1}{26}\), which is equal to the probability for 2 letter palindromes. 
+
+\end{proof}
+
+\begin{proof}[Official Solution]
+The probabilities are equal, since for both 2-letter and 3-letter words,
+being a palindrome means that the first and last letter are the same.
+
+\end{proof}
+
+\begin{problem}{2} 
+A random 5 card poker hand is dealt from a standard deck of cards. Find the probability of each of the following (in terms of binomial coefficients). 
+\end{problem}
+
+\textbf{(a)} A flush (all 5 cards being of the same suit; do not count a royal flush, which is a flush with an Ace, King, Queen, Jack, and 10)
+
+\begin{proof}[Solution]
+\[
+    \frac{4 \times (\binom{13}{5} - 1)}{\binom{52}{5}}
+\]
+\end{proof}
+
+\begin{proof}[Explanation]
+
+There are 52 cards total, and order does not matter for card hands, so there are a total of \(\binom{52}{5}\) possible five-card hands. There are 4 suits and 13 cards per suit. We first need to choose a suit for the flush, and then we need to choose 5 cards out of 13 (again, order doesn't matter), so we have $4 \times \binom{13}{5}$. We also need to subtract 1 because we are not counting a royal flush, of which one is possible per suit, to get 
+\[
+    \frac{4 \times (\binom{13}{5} - 1)}{\binom{52}{5}}
+\]
+
+\end{proof}
 
 
+\textbf{(b)} Two pair (e.g., two 3's, two 7's, and an Ace)
+
+\begin{proof}[Solution]
+\[
+    \frac{\binom{13}{2} \times \binom{4}{2}^2 \times 44}{\binom{52}{5}}
+\]
+\end{proof}
+
+\begin{proof}[Explanation]
+
+There are 52 cards total, and order does not matter for card hands, so there are again a total of \(\binom{52}{5}\) possible five-card hands. There are 13 unique types of cards, and 4 of each (e.g., 2, 2, 2, 2) that are possible to pair. We first need to choose which cards we want for our two pairs: \(\binom{13}{2}\). For each pair, we then need to choose 2 cards out of 4: \(\binom{4}{2}\). Finally, for the remaining card, we cannot choose a card that is the same as any of the pairs', so we have $52 - 8 = 44$ cards left to choose one from. Thus, our total probability is
+\[
+    \frac{\binom{13}{2} \times \binom{4}{2}^2 \times 44}{\binom{52}{5}}
+\]
+
+\end{proof}
+
+
+\begin{problem}{3} 
+(a) How many paths are there from the point (0,0) to the point (110, 111) in the plane such that each step either consists of going one unit up or one unit to the right?
+\end{problem}
+
+\begin{proof}[Solution]
+\[
+     \binom{221}{110} \text{ paths.}
+\]
+\end{proof}
+
+\begin{proof}[Explanation]
+
+In order to reach (110, 111), you need 110 steps to the right and 111 steps upward, for a total of 221 steps. The number of paths lies in the order the steps are taken (whether you go up first or right first, for example). Thus, we can first choose the order of our 110 steps to the right out of 221 steps. We can view this as there being 221 order "slots", and we are choosing 110 of them that we will fill with right steps. The order of the path matters, but the order of the slots we picked doesn't matter, only the combination. The combination of slots we picked will determine the order of steps we take in the path. \\ 
+
+In this case, order doesn't matter, and our steps are without replacement: you cannot simply continue stepping to the right; there are only 110 right steps to use. The remaining 111 steps will all be upward. This gives us a result of \(\binom{221}{110}\) paths. Note that we can reverse our logic and choose upward steps first, and the result \(\binom{221}{111}\) is equivalent.
+\end{proof}
+
+
+\textbf{(b)} How many paths are there from (0,0) to (210,211), where each step consists of going one unit up or one unit to the right, and the path has to go through (110, 111)?
+
+
+\begin{proof}[Solution]
+\[
+    \binom{221}{110} \times \binom{200}{100} \text{ paths.}
+\]
+\end{proof}
+
+\begin{proof}[Explanation]
+
+Since paths have to go through (110, 111), let's treat (110, 111) as our new origin. There are \(\binom{221}{110}\) ways to arrive at this origin. From there, we need to reach (210,211), which relative to our new origin is $(210 - 110, 211 - 111)$ or (100, 100). As above, we choose the order of 100 steps out of 200 steps total to arrive at \(\binom{200}{100}\). There are \(\binom{200}{100}\) ways from our new origin to the destination, and \(\binom{221}{110}\) ways to arrive at this origin: thus, following the multiplication rule, the total number of paths is
+\[
+    \binom{221}{110} \times \binom{200}{100} \text{ paths.}
+\]
+
+\end{proof}
+
+
+\begin{problem}{4} 
+A \textit{norepeatword} is a sequence of at least one (and possibly all) of the usual 26 letters a,b,c,...z. with repetitions not allowed. For example, "course" is a norepeatword, but "statistics" is not. Order matters, e.g., "course" is not the same as "source". A norepeatword is chosen randomly, with all norepeatwords equally likely. Show that the probability that it uses all 26 letters is very close to $1/e$.
+\end{problem}
+
+\begin{proof}[Proof]
+
+For \textit{norepeatwords}, order matters and letters are taken without replacement. For a one letter word, there are \(\binom{26}{1}\) ways to choose letters, but only $1!$ ways to arrange them. For a two letter word, there are \(\binom{26}{2}\) ways to choose letter, and $2!$ ways to arrange them, and so on. For a 26 letter word, there is only one way to choose letters (use all of them), but there are $26!$ ways to arrange them. Our total possible outcomes are then $\sum^{26}_{k = 1}2\binom{26}{k} \, k!$. Our numerator is the number of ways to form 26 letter norepeatwords, $26!$. This simplifies to:
+\[
+    \frac{26!}{\sum^{26}_{k = 1}\binom{26}{k} \, k!} = \frac{26!}{\sum^{26}_{k = 1}\frac{26!}{(26-k)! \, k!} \, k!} = \frac{1}{\sum^{26}_{k = 1}\frac{1}{(26-k)!}} = \frac{1}{\frac{1}{25!} + \frac{1}{24!} + \ldots + \frac{1}{2!} + \frac{1}{1!} + \frac{1}{1}}
+\]
+The Taylor series says:
+\[
+   e^x = \sum^{\infty}_{n = 0} = 1 + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \ldots
+\]
+\[
+   e^1 = \sum^{\infty}_{n = 0} = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \ldots
+\]
+Thus, the Taylor series approximates the bottom 26 terms to e, giving us \(\frac{1}{\frac{1}{25!} + \frac{1}{24!} + \ldots + \frac{1}{2!} + \frac{1}{1!} + \frac{1}{1}} \approx \frac{1}{e}\).
+\end{proof}
+
+
+\begin{problem}{5} 
+Give a story proof that $\sum^{n}_{k=0}\binom{n}{k} = 2^n$.
+\end{problem}
+
+\begin{proof}[Proof]
+Consider picking a subset of n people. For each k = 0...n, pick k people out of n such that you form every subset of size k possible.
+
+For each person $p_k$ where k = 0...n, you can either choose them or not. Following the multiplication rule, this gives $2^n$ possible ways to form every subset of size k. Equivalently, for each k = 0...n, there are \(\binom{n}{k}\) ways to choose k people from n. Therefore, there are  $\sum^{n}_{k=0}\binom{n}{k}$ subsets.
+
+\end{proof}
+\begin{proof}[Official Answer]
+Consider picking a subset of n people. There are \(\binom{n}{k}\) choices with size k, on the one hand, and on the other hand there are $2^n$ subsets by the multiplication rule.
+\end{proof}
+
+\begin{problem}{6} 
+Give a story proof that 
+\[
+\frac{(2n)!}{2^n \cdot n!} = (2n - 1)(2n - 3)\cdots 3 \cdot 1
+\]
+\end{problem}
+
+\begin{proof}[Proof]
+
+Consider $2n$ people. How many partnerships can they form with each other? If we order all possible permutations and take adjacent pairs, there will be $(2n)!$ possible partnerships. However, we've overcounted by $2^n \cdot n!$ since the order of the partnerships doesn't matter ($n$ partnerships total and $n!$ ways to order them), and the order of the partners in the partnerships doesn't matter (2 ways in each pair for $n$ pairs total, or $2^n$ ways to order the partners in each partnerships). This gives us 
+\[
+\frac{(2n)!}{2^n \cdot n!}
+\]
+Equivalently, there are $(2n - 1)$ choices for the first person's partner, and $(2n - 3)$ choices for the second person's partner (as they can't be partnered with the first person or their partner), and so on, giving $(2n - 1)(2n - 3)\cdots 3 \cdot 1$.
+ 
+\end{proof}
+
+\begin{problem}{7} 
+Show that for all positive integers $n$ and $k$ with $n \geq k$,
+\[
+\binom{n}{k} + \binom{n}{k-1} = \binom{n+1}{k},
+\]
+\textit{doing this in two ways:} (a) algebraically and (b) with a "story", giving an interpretation for why both sides count the same thing. 
+
+
+\quad \textit{Hint for the "story" proof:} imagine $n+1$ people, with one them pre-designated as "president".
+\end{problem}
+
+\begin{proof}[Algebraic Proof (a)]
+
+\[
+\binom{n}{k} + \binom{n}{k-1} = \binom{n+1}{k}
+\]
+\[
+\frac{n!}{(n - k)! \, k!} + \frac{n!}{(n - k + 1)! \, (k - 1)!} = \frac{(n + 1)!}{(n - k + 1)! \, k!}  
+\]
+\[
+\frac{n! \, (n - k + 1)}{(n - k + 1)! \, k!} + \frac{n! \, k}{(n - k + 1)! \, k!} = \frac{(n + 1)!}{(n - k + 1)! \, k!}  
+\]
+\[
+\frac{n! \, (n + 1)}{(n - k + 1)! \, k!} = \frac{(n + 1)!}{(n - k + 1)! \, k!}  
+\]
+\[
+\frac{(n + 1)!}{(n - k + 1)! \, k!} = \frac{(n + 1)!}{(n - k + 1)! \, k!}  
+\]
+\end{proof}
+
+\begin{proof}[Story Proof (b)]
+Imagine $n + 1$ people, with one of them pre-designated as president. Consider picking $k$ people out of this group: \(\binom{n+1}{k}\). Equivalently, there are 2 possibilities for choosing this group of $k$. If we choose the president, there are \(\binom{n}{k-1}\) ways to choose the remaining $k - 1$ people in the group. Or, if we don't choose the president, there are \(\binom{n}{k}\) ways to choose the remaining k people. Together, this gives you all the ways to pick k people from n+1 considering both choosing and not choosing the president. This gives $\binom{n}{k-1} + \binom{n}{k}$ total ways.
+\end{proof}
+
+\begin{proof}[Official Solution]
+For the “story” method (which proves that the two sides are equal by giving an interpretation where they both count the same thing in two different ways), consider $n + 1$ people, with one of them pre-designated as “president”. The right-hand side is the number of ways to choose k out of these $n + 1$ people, with order not mattering. The left-hand side counts the same thing in a different way, by considering two cases: the president is or isn’t in the chosen group. The number of groups of size k which include the president is \(\binom{n}{k-1}\), since once we fix the president as a member of the group, we only need to choose another $k-1$ members out of the remaining n people. Similarly, there are \(\binom{n}{k}\) groups of size k that don’t include the president. Thus, the two sides of the equation are equal.
 \end{proof}
 
 \end{document}
