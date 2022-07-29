@@ -1,0 +1,269 @@
+\documentclass[10pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+\usepackage[parfill]{parskip}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+ 
+\title{Homework 1, Fall 2011}
+\author{Michael Wong\\
+Stat 110, Harvard University}
+\maketitle
+
+\begin{problem}{1} 
+A certain family has 6 children, consisting of 3 boys and 3 girls. Assuming that all birth orders are equally likely, what is the probability that the 3 eldest children are the 3 girls?
+\end{problem}
+
+\begin{proof}[Solution]
+There are \(\binom{6}{3}\) = 20 possible ways to choose the 3 eldest children, and \(\binom{3}{3}\) = 1 way that the 3 eldest children are the 3 girls (choosing 3 girls out of 3). Following the Naive Probability definition (and given equally likely birth orders), this gives us \(\frac{1}{20}\).
+
+Equivalently, we can consider how many ways there are to order the children's ages, which gives us $6!$ total possibilities. If we consider that all 3 girls need to be before all 3 boys, this gives us \(\frac{3! \, 3!}{6!} = \frac{1}{20}\).
+\end{proof}
+
+\begin{problem}{2} 
+(a) How many ways are there to split a dozen people into 3 teams, where one team has 2 people, and the other teams have 5 people each?
+\end{problem}
+
+\begin{proof}[Solution]
+There are \(\binom{12}{2}\) ways to choose the team of 2. There are then \(\binom{10}{5} / 2\) ways of choosing the two teams of five. We divide by 2 because the two teams are indistinguishable, so we've double counted. For example, if we choose $a,b,c,d,e$ for our first team, our second team of 5 would be $f,g,h,i,j$. But we could also choose $f,g,h,i,j$ for our first team, and our second would be $a,b,c,d,e$. These two are equivalent. Thus, we get 
+\[
+\frac{\binom{12}{2} \, \binom{10}{5}}{2} = 8316.
+\]
+
+Alternatively, there are $12!$ ways of arranging the 12 people in a row, taking the first two as the team of 2, the next five as the first team of 5, and then the final five as the second team of 5. However, as the order of the teams doesn't matter, and we are still overcounting because there is no difference between the first team of 5 and the second team of 5, we get
+\[
+\frac{12!}{2! \,  5! \, 5! \cdot 2} = 8316.
+\]
+\end{proof}
+
+(b) How many ways are there to split a dozen people into 3 teams, where each team has 4 people?
+\begin{proof}[Solution]
+
+
+There are \(\binom{12}{4}\) ways to choose the first team of 4, and \(\binom{8}{4}\) ways to choose the second team of 4 (the remaining 4 will be the final team of 4). As above, since the 3 teams are again indistinguishable, and there are $3!$ ways to arrange the 3 teams, we need to divide our result by $3!$, resulting in 
+
+\[
+\frac{\binom{12}{4} \, \binom{8}{4}}{3!} = 5775.
+\]
+
+Similarly, we can arrange the 12 people in a row in $12!$ ways.  Given that the order of the teams doesn't matter for each of the 3 teams of 4, and as above, since the 3 teams are indistinguishable, we get \(\frac{12!}{(4!)^3 \cdot 3!} = 5775\).
+
+\end{proof}
+
+
+\begin{problem}{3} 
+A college has 10 (non-overlapping) time slots for its courses, and blithely assigns courses to time slots randomly and independently. A student randomly chooses 3 of the courses to enroll in (for the PTP, to avoid getting fined). What is the probability that there is a conflict in the student's schedule?
+\end{problem}
+
+\begin{proof}[Solution]
+
+Because courses are assigned to time slots randomly and independently, the probability for a course to have a given time slot is equally likely for each slot. A conflict means two or more courses having the same slot. If a student randomly chooses 3 courses, they will the pick the first course. Then, there is a \(\frac{9}{10}\) chance the second course they pick will not have the same time slot as the course already picked. Then, there is an \(\frac{8}{10}\) chance that third course they pick will not have a time slot that is the same as either of the first two picked courses. This gives a \(\frac{9}{10} * \frac{8}{10} = 0.72\) probability that there will be no conflict in these 3 courses, or a $1 - 0.72 = 0.28$ probability that there will be a conflict in the student's schedule.
+
+\end{proof}
+
+\begin{proof}[Official Solution]
+The probability of no conflict is $\frac{10 \cdot 9 \cdot 8}{10^3} = 0.72$. So the probability of there being at least one scheduling conflict is 0.28.
+\end{proof}
+
+\begin{proof}[Interesting Online Solution]
+
+Firstly observe that there exist $10^3$ ways to arrange the courses freely. The complement of given event is that there exists no conflict in student's schedule. There exists \(\binom{10}{3} \cdot 3!\) ways to pick schedules without conflicts (firstly take spots using formula for combinations without repetition and then permute courses throughout picked spots). So the answer is
+\[
+1 - \dfrac{\binom{10}{3} \cdot 3!}{10^3}
+\]
+\end{proof}
+\begin{problem}{4} 
+A city with 6 districts has 6 robberies in a particular week. Assume the robberies are located randomly, with all possibilities for which robbery occurred were equally likely. What is the probability that some district had more than 1 robbery?
+\end{problem}
+
+\begin{proof}[Solution]
+
+Consider 6 robberies. Pick 6 districts for them to happen in. Each robbery can only happen in one district, but a district can have multiple robberies. Since there are 6 district choices for each robbery, this gives us a total of $6^6$ possibilities (order matters, with replacement). By order matters, it means that each robbery is distinguishable, so which robbery happened in which district matters. Then, the probability that no district has more than 1 robbery, or the complement of the desired event, is 
+
+\[
+6 \times 5 \times 4 \times 3 \times 2 \times 1 = 6!, \text{ giving us } \frac{6!}{6^6}.
+\]
+
+Each robbery has one less choice of district in order to not have overlap. Therefore, the probability that some district had more than 1 robbery is 
+
+\[
+\frac{6^6 - 6!}{6^6} = 1 - \frac{6!}{6^6}.
+\]
+
+\end{proof}
+
+\begin{problem}{5} 
+Elk dwell in a certain forest. There are $N$ elk, of which a simple random sample of size $n$ are captured and tagged ("simple random sample" means that all \(\binom{N}{n}\) sets of $n$ elk are equally likely). The captured elk are returned to the population, and then a new sample is drawn, this time with size $m$. This is an important method that is widely-used in ecology, known as \textit{capture-recapture}.
+
+What is the probability that exactly $k$ of the $m$ elk in the new sample were previously tagged? (Assume that an elk that was captured before doesn't become more or less likely to be captured again).
+\end{problem}
+
+\begin{proof}[Solution]
+
+There are \(\binom{N}{n}\) possible sets, and \(\binom{N}{m}\) possible new samples to take. Consider the new sample of size $m$. First, choose from the previously tagged group (size $n$) exactly $k$ elk. There are \(\binom{n}{k}\) ways to do this. Then, choose the remaining $m - k$ elk in the new sample, this time from the non-tagged group of size $N - n$. This gives \(\binom{N - n}{m - k}\). Thus, we get
+
+\[
+\frac{\binom{n}{k} \, \binom{N - n}{m - k}}{\binom{N}{m}}.
+\]
+
+for $k$ such that $0 \leq k \leq n$ and $0 \leq m - k \leq N - n$ and the probability is 0 for all
+other values of $k$ (for example, if $k > n$ the probability is 0 since then there aren’t
+even $k$ tagged elk in the entire population!). 
+\end{proof}
+
+\begin{problem}{5} 
+A jar contains $r$ red balls and $g$ green balls, where $r$ and $g$ are fixed positive integers. A ball is drawn from the jar randomly (with all possibilities equally likely), and then a second ball is drawn randomly.
+\end{problem}
+
+(a) Explain intuitively why the probability of the second ball being green is the same as the probability of the first ball being green.
+
+\begin{proof}[Solution]
+
+This is true by symmetry. The first ball you pick is equally likely to be any of the $g + r$ balls, and has a \(\frac{g}{g + r}\) chance of being green. The second ball you pick is also equally likely to be any of the $g + r$ balls, and has a \(\frac{g}{g + r}\) chance of being green. Once we know the color of the first ball, we have conditional knowledge that affects the uncertainty of the second ball, but before we have this information, the second ball is equally likely to be green as the first.
+
+\end{proof}
+\begin{proof} [Intuitive Solution]
+Let us keep drawing balls and place them in a line in order of withdrawal, until we have drawn all $g + r$ balls. Now, look at any ball in the line? What is the probability of it being green? How about the first, or the second, or the last, or anywhere in between? Every ball is equally likely to be any of the $g + r$ balls in the line , and thus has an equally likely chance of being green. 
+
+Let us just keep drawing balls and line them up as we do so; thus forming a line of $r$ red and $g$ green balls in order of withdrawal. I now point to any ball in the line. What is the probability that it is green?
+
+Should it matter at all where in the line I have pointed? The first? The second? The last? Anywhere in between?
+
+Every ball has the same chance of being the first ball drawn, and $g$ of the $r+g$ balls are green.
+
+Every ball has the same chance of being the second ball drawn, and $g$ of the $r+g$ balls are green.
+
+\vdots
+
+Every ball has the same chance of being the last ball drawn, and $g$ of the $r+g$ balls are green.
+
+The counter intuition is that the color of the first ball drawn influences the probability for the second ball, and this is true but only when you have knowledge of what the first may be. Without that conditional knowledge, each ball that was in the jar has the same chance to be the second ball drawn.
+\end{proof}
+
+(b) Define notation for the sample space of the problem, and use this to compute the probabilities from (a) and show that they are the same.
+
+\begin{proof}[Solution]
+
+There are $r + g$ possible balls that can be picked first, and $r + g - 1$ balls that can be picked second. The sample space is the set of all $(r + g) (r + g - 1)$ possibilities for the first and second balls. The probability of drawing a green ball first is \(\frac{g}{g + r}\). There are then two options for the second ball drawn to be green: drawing green, then green, or drawing red, then green. The probability of drawing green, then green, by the multiplication rule, is \((\frac{g}{g + r}) (\frac{g - 1}{g + r - 1})\), and the probability of drawing red, then green, is \((\frac{r}{g + r}) (\frac{g}{g + r - 1})\).
+
+The probability for the second ball being green thus simplifies to:
+
+\[
+\left(\frac{g}{r + g}\right) \left(\frac{g - 1}{r + g - 1}\right) + \left(\frac{r}{r + g}\right) \left(\frac{g}{r + g - 1}\right) = \frac{g^2 + rg - g}{(r + g) (r + g - 1)} = \frac{g}{r + g}.
+\]
+\end{proof}
+
+\begin{proof}[Official Sample Space]
+Label the balls as $1, 2,...,g+r$, such that $1, 2,...,g$ are green and $g+1,...,g+r$
+are red. The sample space can be taken to be the set of all pairs $(a, b)$ with $a, b \in
+\{1,...,g + r\}$ and $a \neq b$ (there are other possible ways to define the sample space,
+but it is important to specify all possible outcomes using clear notation, and it make
+sense to be as richly detailed as possible in the specification of possible outcomes,
+to avoid losing information). 
+\end{proof}
+(c) Suppose that there are 16 balls in total, and that the probability that the two balls are the same color is the same as the probability that they are different colors. What are $r$ and $g$ (list all possibilities?)
+
+\begin{proof}[Solution]
+
+Let the probability that the two balls are the same color be $A$. It's given that $P(A) = P(A^c)$, so $P(A) = 0.5$. From (b), the probability of getting two of the same color (either two greens or two reds) is:
+
+\[
+\left(\frac{g}{r + g}\right) \left(\frac{g - 1}{r + g - 1}\right) + \left(\frac{r}{r + g}\right) \left(\frac{r}{r + g - 1}\right) = \frac{g^2 - g + r^2 - r}{(r + g) (r + g - 1)}.
+\]
+
+The probability of getting two different colors (green, then red, or red, then green) is:
+
+\[
+\left(\frac{g}{r + g}\right) \left(\frac{r}{r + g - 1}\right) + \left(\frac{r}{r + g}\right) \left(\frac{g}{r + g - 1}\right) = \frac{2rg}{(r + g) (r + g - 1)}.
+\]
+
+Setting these equal to one another and simplifying, we get:
+
+\[
+\frac{g^2 - g + r^2 - r}{(r + g) (r + g - 1)} = \frac{2rg}{(r + g) (r + g - 1)}.
+\]
+\[
+g^2 - g + r^2 - r - 2rg = 0
+\]
+\[
+(g-r)^2 = g + r = 16
+\]
+
+Simplifying, we get $g = 6, r = 10$, and $g = 10, r = 6$.
+
+\end{proof}
+
+\begin{problem}{7} 
+(a) Show using a story proof that
+\[
+    \binom{k}{k} + \binom{k + 1}{k} + \binom{k + 2}{k} + \cdots + \binom{n}{k} = \binom{n + 1}{k + 1} 
+\]
+where $n$ and $k$ are positive integers with $n \geq k$.
+Hint: imagine arranging a group of people by age, and then think about the oldest person in a chosen subgroup.
+\end{problem}
+
+\begin{proof}[Proof]
+
+Imagine arranging a line of $n+1$ people, ordered by age. The earlier people are in the line, the younger they are. The youngest person is first, and the oldest person is the $(n+1)$th. We can pick $k+1$ people from this line without consideration of age: there are \(\binom{n+1}{k+1}\) possible subgroups we can form, all of size $k+1$. \\
+
+Consider the oldest person in a set of subgroups, labeled $o$. Based on our line arrangement, if $o$ is the oldest in the subgroup, it will also be the last person in the group. In the case where $o$ is the youngest possible, we can form a subgroup by lining up the first $k$ people, so the $(k+1)$th person is the oldest. In the case where $o$ is the oldest possible, we can form subgroups by lining up any group of $k$ excepting the last since $o$ must be the $(n+1)$th person in line. For all possible subgroups of size $k+1$, $o$ ranges from the $(k+1)$th person to the $(n+1)$th person. If we fix $o$, we can find all ways we can form a set of subgroups such that $o$ remains the oldest person in the set of groups. If we do this for each possible person $o$, and sum each of these cases, this is equivalent to the number of ways you can form all possible subgroups of size $k+1$ from $n+1$ people.
+
+As above, let us fix $o$ to be the $(k+1)$th person. We can then pick everyone younger than $o$: the rest of the $k$ members of the group must be picked from the first $k$ people in the line. Picking from the first $k$ people ensures that $o$ will be remain the oldest person we have picked. There are \(\binom{k}{k}\) ways to do this. Now, fix $o$ to be the $(k+2)$th person, one spot later in the line. We can now pick $k$ people from the first $k+1$ people because all $k+1$ people come before $o$ in the line, so $o$ remains the oldest. There are \(\binom{k + 1}{k}\) ways to do this, and so on, until finally, we fix $o$ to be the $(n+1)$th person. Now, we can pick a group of size $k$ from the entire line of people excepting the last, since we need the oldest person in our set to remain the $(n+1)$th person. There are \(\binom{n}{k}\) ways to do so.
+
+This gives us \(\binom{k}{k} + \binom{k + 1}{k} + \binom{k + 2}{k} + \cdots + \binom{n}{k}\) possible ways to form subgroups.
+
+\end{proof}
+
+\begin{proof}[Official Proof]
+Consider choosing $k + 1$ people out of a group of $n + 1$ people. Call the oldest
+person in the subgroup “Aemon.” If Aemon is also the oldest person in the full group,
+then there are \(\binom{n}{k}\) choices for the rest of the subgroup. If Aemon is the 
+second oldest in the full group, then there are \(\binom{n - 1}k{}\) choices since the 
+oldest person in the full group can’t be chosen. In general, if there are j people in 
+the full group who are younger than Aemon, then there are \(\binom{j}{k}\) possible 
+choices for the rest of the subgroup. Thus,
+
+\[
+    \sum^{n}_{j=k}\binom{j}{k} = \binom{n+1}{k+1}.
+\]
+(This is sometimes called the hockey-stick identity, since if shown visually using
+Pascal’s triangle it resembles a hockey-stick.)
+\end{proof}
+
+\begin{proof}[Online Solution (My version)]
+Imagine a line of $n+1$ numbers, written in order on a piece of paper. The right hand side asks how many ways you can choose $k+1$. How many ways can you do this? Consider picking the highest number first, then picking the rest of your subgroup. You pick the highest number, and circle it. Next, you still have to pick $k$ numbers, each less than your circled number, so there are \(\binom{n}{k}\) choices for the rest of the subgroup. You then pick the second highest number, and circle it. You now have \(\binom{n - 1}{k}\) choices for the rest of the subgroup, and so on, until you choose the $k+1$th highest number, and there are just \(\binom{k}{k}\) choices less than your circled number.
+
+Thus,
+\[
+    \binom{k}{k} + \binom{k + 1}{k} + \binom{k + 2}{k} + \cdots + \binom{n}{k} = \binom{n + 1}{k + 1} 
+\]
+
+\end{proof}
+
+(a) Suppose that a large pack of Haribo gummi bears can have anywhere between 30 and 50 gummi bears. There are 5 delicious flavors: pineapple (clear), raspberry (red), orange (orange), strawberry (green, mysteriously), and lemon (yellow). There are 0 non-delicious flavors. How many possibilities are there for the composition of such a pack of gummi bears? You can leave your answer in terms of a couple binomial coefficients, but not a sum of lots of binomial coefficients.
+
+\begin{proof}[Solution]
+
+For our composition of a pack of gummi bears, order doesn't matter (only the contents of the bag), and we have replacement (flavors can be used unlimited times). Consider a pack of 30 gummi bears. We have $k = 30$ indistinguishable gummi bears and $n = 5$ distinguishable flavors to assign them to. We can use the stars-and-bars method, which gives us \(\binom{n + k -1}{k} = \binom{n + k - 1}{n - 1}\) or \(\binom{34}{4}\) ways we can make a pack of 30 bears. \\
+
+Now, we have to sum this calculation for every $k$ from $k = 30 \ldots 50$, giving us
+
+\[
+    \sum^{50}_{k=30}\binom{k + 4}{4} = \sum^{54}_{k=34}\binom{k}{4}.
+\]
+
+From the hockey stick identity \(\sum^{n}_{j=k}\binom{j}{k} = \binom{n+1}{k+1}\) this gives us
+
+\[
+    \sum^{54}_{k=34}\binom{k}{4} = \sum^{54}_{k=4}\binom{k}{4} - \sum^{33}_{k=4}\binom{k}{4} = \binom{55}{5} - \binom{34}{5}.
+\]
+\end{proof}
+
+
+\end{document}
