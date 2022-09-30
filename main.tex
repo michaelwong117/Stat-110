@@ -1,0 +1,309 @@
+\documentclass[10pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+\usepackage[parfill]{parskip}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+ 
+\title{Strategic Practice 2, Fall 2011}
+\author{Michael Wong\\
+Stat 110, Harvard University}
+\maketitle
+
+\section{Inclusion-Exclusion}
+ 
+\begin{problem}{1} 
+For a group of 7 people, find the probability that all 4 seasons (winter, spring, summer, fall) occur at least once each among their birthdays, assuming that all seasons are equally likely.
+\end{problem}
+
+\begin{proof}[Inclusion-Exclusion Solution]
+Let $P(A_i)$ be the probability that no birthdays occur in the $i$th season. Then, the probability that all 4 seasons occur at least once among the group's birthdays is $1 - P(A_1 \cup A_2 \cup A_3 \cup A_4)$, where $P(A_1 \cup A_2 \cup A_3 \cup A_4)$ is the probability that at least one season has no birthdays occurring. Consider probability $P(A_i)$ for a given $i$. There are seven people, and four possible seasons, so for $A_i$ to occur all seven people must be born in the other three seasons besides the $i$th. Thus, \(P(A_i) = (\frac{3}{4})^7\). Similarly, for $P(A_i \cap A_j)$ where $i < j$, the probability is \((\frac{2}{4})^7\), and for $P(A_i \cap A_j \cap A_k)$ where $i < j < k$, the probability is \((\frac{1}{4})^7\). Since there are four ways to choose $i$, \(\binom{4}{2}\) ways to choose $i$ and $j$, and \(\binom{4}{3}\) ways to choose $i$, $j$, and $k$, by inclusion-exclusion, our result is 
+
+\[
+1 - (4)\left(\frac{3}{4}\right)^7 + \binom{4}{2}\left(\frac{3}{4}\right)^7 - \binom{4}{3}\left(\frac{1}{4}\right)^7 = 0.5217.
+\]
+
+\end{proof}
+
+\begin{proof}[Naive Probability Solution]
+TBD
+\end{proof}
+
+\begin{problem}{2} 
+Alice attends a small college in which each class meets only once a week. She is deciding between 30 non-overlapping classes. There are 6 classes to choose from for each day of the week, Monday through Friday. Trusting in the benevolence of randomness, Alice decides to register for 7 randomly selected classes out of the 30, with all choices equally likely. What is the probability that she will have classes every day, Monday through Friday? (This problem can be done either directly using the naive definition of probability, or using inclusion-exclusion.
+\end{problem}
+
+\begin{proof}[Inclusion-Exclusion Solution]
+
+Let $A_i$ be the probability that Alice has at least one class on day $i$. $P(A_1 \cup \ldots \cup A_5)$ is then the probability of Alice having at least one class during the week, and $P(A_1^c \cup \ldots \cup A_5^c)$ is the probability that at least one day does not have at least one class, or, the complement of the probability of having class every day. Call this complement $P(B_1 \cup \ldots \cup B_5)$ So, our goal is to find $1 - P(B_1 \cup \ldots \cup B_5)$. 
+
+By inclusion-exclusion, this probability is equivalent to 
+\[
+P(B_1 \cup \ldots \cup B_5) = \sum_{i=1} P(B_i) - \sum_{i < j} P(B_i \cup B_j) + \sum_{i < j < k} P(B_i \cup B_j \cup B_k).
+\]
+
+We do need the last two terms of inclusion-exclusion because given that there are seven classes, two distinct days will always have class.
+
+First, let's find $P(B_i)$, or the probability that day i does not have class. Assume this day is Monday for concreteness. We can split this problem into cases: class happens Monday, or class doesn't happen Monday. For class not to happen Monday, you must choose all 7 classes from the $4 \times 6 = 24$ remaining classes on other days of the week, so there are \(\binom{24}{7}\) ways. There are \(\binom{30}{7}\) ways to choose classes total, so \(P(B_i) = \frac{\binom{24}{7}}{\binom{30}{7}}\). Then, to find $P(B_i \cup B_j)$, there are now \(\binom{18}{7}\) ways to choose classes excluding two days, out of \(\binom{30}{7}\) ways total, so \(P(B_i \cup B_j) = \frac{\binom{18}{7}}{\binom{30}{7}}\). Similarly, \(P(B_i \cup B_j \cup B_k) = \frac{\binom{12}{7}}{\binom{30}{7}}\). Now, consider the ways which we can choose the days that do not have class. Since there are 5 ways to pick $i$, \(\binom{5}{2}\) ways to pick $i$ and $j$, and \(\binom{5}{3}\) ways to pick $i, j$ and $k$, we get:
+
+\[
+P(B_1 \cup \ldots \cup B_5) = (5)\frac{\binom{24}{7}}{\binom{30}{7}} - \binom{5}{2}\frac{\binom{18}{7}}{\binom{30}{7}} + \binom{5}{3}\frac{\binom{12}{7}}{\binom{30}{7}} = \frac{263}{377}.
+\]
+
+Therefore, our result is
+
+\[
+1 - \frac{263}{377} = \frac{114}{377}.
+\]
+
+\end{proof}
+
+\begin{proof}[Naive Probability Solution]
+
+There are \(\binom{30}{7}\) ways to pick seven classes from 30, adn there are two cases for picking seven classes such that all five days of the week are represented. One day can have three classes, and then all other days must only have one, or two separate days can have two classes, and all the other days must also only have one. For the first case, we have five choices for which day has three classes, and \(\binom{6}{3}\) ways to choose those three classes. Then, given one day has three, all the other days must have a class, so we have $6^4$ possibilities for the remaining four days. This gives us \(5 \binom{6}{3} 6^4\). For the second case, we have \(\binom{6}{2}\) ways to pick which two days will have two classes, and \(\binom{6}{2}\) ways to choose what those two classes will be. Then, given that two days have two classes, all the other days must again have a class each, so we have $6^3$ possibilities for the remaining three days. This gives us \(\binom{6}{2} \binom{6}{2} 6^3\). By naive probability, our result is then
+\[
+    \frac{(5) \binom{6}{3} (6^4) + \binom{5}{2} \binom{6}{2}^2 (6^3)}{\binom{30}{7}} = \frac{114}{377}.
+\]
+\end{proof}
+
+\section{Independence}
+
+\begin{problem}{1} 
+Is it possible that an event is independent of itself? If so, when?
+\end{problem}
+
+\begin{proof}[Solution]
+Yes, it is possible. By definition, two events $A$ and $B$ are independent if $P(A \cap B) = P(A)P(B)$. If an event is independent of itself, then $P(A \cap A) = P(A)P(A) = P(A)^2$. But $P(A \cap A) = P(A)$ by definition. So, for $P(A)$ to equal $P(A)^2$, $P(A)$ must equal to either 0 or 1.
+\end{proof}
+
+\begin{problem}{2} 
+Is it always true that if $A$ and $B$ are independent events, then $A^c$ and $B^c$ are
+independent events? Show that it is, or give a counterexample.
+\end{problem}
+
+\begin{proof}[Solution]
+If it is true that if $A$ and $B$ being independent always implies $A^c$ and $B^c$ are independent, then $A$ and $B^c$ and $B$ and $A^c$ must by definition also be independent.
+
+\end{proof}
+
+\begin{problem}{3} 
+Give an example of 3 events $A, B, C$ which are pairwise independent but not
+independent. Hint: find an example where whether C occurs is completely
+determined if we know whether A occurred and whether B occurred, but completely undetermined if we know only one of these things.
+\end{problem}
+
+\begin{proof}[Solution]
+For $A, B, C$ to be pairwise independent but not independent,
+\begin{equation}
+\begin{split}
+P(A \cap B \cap C) \neq P(A) \, P(B) \,P(C). \\
+P(A \cap B) = P(A) \, P(B). \\
+P(A \cap C) = P(A) \, P(C). \\
+P(B \cap C) = P(B) \, P(C).
+\end{split}
+\end{equation}
+Say you have two fair dice. Let $A$ be the event that the first dice rolled is 6, and $B$ be the event that the second dice rolled is 6. $C$ is the event that both dice match. Here, \(P(A \cap B) = P(A)P(B), P(A \cap C) = P(A)P(C), P(B \cap C) = P(B)P(C), P(A \cap B \cap C) = \frac{1}{4} \neq P(A)P(B)P(C)\).
+\end{proof}
+
+\begin{problem}{4} 
+Give an example of 3 events $A, B, C$ which are not independent, yet satisfy
+$P(A \cap B \cap C) = P(A)P(B)P(C)$. Hint: consider simple and extreme cases.
+\end{problem}
+
+\begin{proof}[Solution]
+For $A, B, C$ to be independent events which satisfy $P(A \cap B \cap C) = P(A)P(B)P(C)$, say you have a dice. Let A be the event of rolling a 7 with a fair dice, B be the event of rolling a 3, and C be the event of rolling a 4. These events are all independent of each other, and $P(A \cap B \cap C) = P(A)P(B)P(C) = 0$.
+\end{proof}
+
+\section{Conditional Probability}
+
+\begin{problem}{1} 
+A bag contains one marble which is either green or blue, with equal probabilities. A green marble is put in the bag (so there are 2 marbles now), and then
+a random marble is taken out. The marble taken out is green. What is the
+probability that the remaining marble is also green?
+\end{problem}
+
+\begin{proof}[Solution]
+Let $A$ be the initial marble is green, B be that the drawn marble is green, and C be that the remaining marble is green. We want to find $P(C \mid B)$.
+
+By the law of total probability, we can now expand $P(C \mid B) = P(C \mid (B \cap A)) \, P (A \mid B) + P(C \mid (B \cap A^c)) \, P(A^c \mid B)$ because we need to account for both cases (the initial marble is green given that the drawn is green, and the initial marble is NOT green given that the drawn marble is green. This can also be written as $P(C \mid B) = P(C \mid B, A)) \, P (A \mid B) + P(C \mid B, A^c) \, P(A^c \mid B)$.
+
+Note that the law of total probability says we expand $P(B) = P(B \cap A_1) + P(B \cap A_2) + \ldots + P(B \cap A_n) = P(B \mid A_1) \, P(A_1) + P(B \mid A_2) \, P(A_2) + \ldots + P(B \mid A_n) \, P(A_n)$, so in this case we expand a term like $P(C \mid B)$ like so:
+\[
+P(C \mid B) = P(C \mid B \cap (A \mid B)) + P(C \mid B \cap (A^c \mid B)) 
+\]
+\[
+= P(C \mid (B \cap A)) \, P (A \mid B) +  P(C \mid (B \cap A^c)) \, P(A^c \mid B)
+\]
+\[
+= P(C \mid B, A)) \, P (A \mid B) + P(C \mid B, A^c) \, P(A^c \mid B).
+\]
+
+Note the way the law of total probability applies: $B$ is analogous to $C \mid B$, and $A_1$ is analogous to $A \mid B$. Now, simplifying, we get:
+
+\[
+P(C \mid B) = P(C \mid B, A)) \, P (A \mid B) + P(C \mid B, A^c) \, P(A^c \mid B) = 1 \times P (A \mid B) + 0 \times P(A^c \mid B) = P (A \mid B). 
+\]
+
+By Bayes' Rule,
+\[
+P (A \mid B) = \frac{P(B \mid A) P(A)}{P(B)} = \frac{(1)(0.5)}{0.75} = \frac{2}{3}.
+\]
+
+\end{proof}
+
+\begin{problem}{2} 
+A spam filter is designed by looking at commonly occurring phrases in spam.
+Suppose that 80\% of email is spam. In 10\% of the spam emails, the phrase “free
+money” is used, whereas this phrase is only used in 1\% of non-spam emails.
+A new email has just arrived, which does mention “free money”. What is the probability that it is spam?
+\end{problem}
+
+\begin{proof}{Solution}
+
+Let A be the probability that the email is spam. Let B be the probability that the phrase "free money" appears in the email. We want to find $P(A \mid B)$. By Bayes' Rule, \(P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B)} = \frac{(0.1)(0.8)}{P(B)}\), by the givens of the problem. 
+
+Now, to find $P(B)$, we apply the rule of total probability: $P(B) = P(B \cap A) + P(B \cap A^c) = P(B \mid A) P(A) + P(B \mid A^c) P(A^c) = (0.1)(0.8) + (0.01)(0.2) = 0.082$.
+
+Then, returning to our original result, \(P(A \mid B) =  \frac{(0.1)(0.8)}{0.082} = 0.975\).
+\end{proof}
+
+\begin{problem}{3}
+Let $G$ be the event that a certain individual is guilty of a certain robbery. In
+gathering evidence, it is learned that an event $E_1$ occurred, and a little later it
+is also learned that another event $E_2$ also occurred.
+\end{problem}
+
+(a) Is it possible that individually, these pieces of evidence increase the chance
+of guilt (so $P(G \mid E_1) > P(G)$ and $P(G \mid E_2) > P(G))$, but together they decrease
+the chance of guilt (so $P(G \mid E_1, E_2) < P(G)$)?
+
+\begin{proof}
+Yes, it is possible. It is also possible that two pieces of evidence, when considered separately, increase the probability of $G$, but when taken together, altogether \textit{preclude} the possibility of $G$! For example, let's say the robbery was committed sometime between 5 pm and 7 pm. Let $E_1$ be the event that a suspect was nearby to the crime scene at a flower store from 5 pm to 6 pm. Let $E_2$ be the event that a suspect was nearby to the crime scene at a flower store from 6 pm to 7 pm. Separately, $E_1$ or $E_2$ increases the probability of $G$ for that suspect, but together, they provide an alibi for the suspect and preclude him from being guilty entirely.
+\end{proof}
+
+(b) Show that the probability of guilt given the evidence is the same regardless
+of whether we update our probabilities all at once, or in two steps (after getting
+the first piece of evidence, and again after getting the second piece of evidence).
+That is, we can either update all at once (computing $P(G|E_1, E_2)$ in one step),
+or we can first update based on $E_1$, so that our new probability function is
+$P_{new}(A) = P(A \mid E_1)$, and then update based on $E_2$ by computing $P_{new}(G \mid E_2)$.
+
+\begin{proof}
+
+\[
+    P(G|E_1, E_2) = \frac{P(G \cap E_1 \cap E_2)}{P(E_2 \cap E_1)}.
+\]
+\[
+    P_{new}(G \mid E_2) = \frac{P_{new}(G \cap E_2)}{P_{new}(E_2)} = \frac{P(G, E_2 | E_1)}{P(E_2 | E_1)} = \frac{
+    \frac{P(G \cap E_2 \cap E_1)}{P(E_1)}}{\frac{P(E_2 \cap E_1)}{P(E_1)}} = \frac{P(G \cap E_1 \cap E_2)}{P(E_2 \cap E_1)}.
+    
+\]
+
+\end{proof}
+\begin{problem}{4}
+A crime is committed by one of two suspects, $A$ and $B$. Initially, there is equal
+evidence against both of them. In further investigation at the crime scene, it is
+found that the guilty party had a blood type found in 10\% of the population.
+Suspect $A$ does match this blood type, whereas the blood type of Suspect $B$ is
+unknown
+\end{problem}
+
+(a) Given this new information, what is the probability that $A$ is the guilty
+party?
+\begin{proof}
+
+Let $A$ be the event that A is guilty, $B$ be the event that B is guilty, and $M$ be the event that A matches the guilty party's blood. We know $P(A) = P(B) = 0.5$, and we want to find $P(A \mid M)$.
+
+By Bayes' Law and the LOTP:
+\[
+    P(A \mid M) = \frac{P(A \cap M)}{P(M)} = \frac{P(M \mid A) P(A)}{P(M \mid A) P(A) + P(M \mid B) P(B)}.
+\]
+$P(M \mid B) = 0.10$ because the probability that A's blood is matching given that we \textit{already} know B is the guilty one is just the same as the probability that a random person in the general pop. is matching: 10\%.
+\[
+    P(M \mid A) P(A) + P(M \mid B) P(B) = 1 \times 0.5 + 0.10 \times 0.5 = 0.55.
+\]
+\[
+    P(A \mid M) = \frac{0.5}{0.55} = \frac{10}{11}.
+\]
+
+\end{proof}
+(b) Given this new information, what is the probability that $B$’s blood type
+matches that found at the crime scene?
+
+Let $M_B$ be the event that $B$’s blood type matches that found at the crime scene.
+
+\[
+    P(M_B \mid M) = P(M_B \mid M, A) P(A \mid M) + P(M_B \mid M, B) P(B \mid M) = \frac{1}{10} \times \frac{10}{11} + 1 \times P(B \mid M).
+\]
+
+\[
+    P(B \mid M) = 1 - P(A \mid M) = \frac{1}{11}.
+\]
+
+\[
+    P(M_B \mid M) = \frac{1}{10} \times \frac{10}{11} + 1 \times \frac{1}{11} = \frac{2}{11}.
+\]
+\begin{problem}{5}
+You are going to play 2 games of chess with an opponent whom you have never
+played against before (for the sake of this problem). Your opponent is equally
+likely to be a beginner, intermediate, or a master. Depending on which, your
+chances of winning an individual game are 90\%, 50\%, or 30\%, respectively.
+\end{problem}
+
+(a) What is your probability of winning the first game?
+
+(b) Congratulations: you won the first game! Given this information, what is
+the probability that you will also win the second game (assume that, given the
+skill level of your opponent, the outcomes of the games are independent)?
+
+(c) Explain the distinction between assuming that the outcomes of the games
+are independent and assuming that they are conditionally independent given
+the opponent’s skill level. Which of these assumptions seems more reasonable,
+and why?
+
+\begin{proof} (a)
+Let B be the event that the opponent is a beginner, I be the event that they are intermediate, and M be the event that they are a master. $P(B) = P(I) = P(M) = 1/3$. Let W be the event that we win the first game. By the LOTP, $P(W) = P(W \mid B) P(B) + P(W \mid I) P(I) + P(W \mid M) P(M) = (0.9)(1/3) + (0.5)(1/3) + 0.3(1/3) = 0.567$.
+\end{proof}
+
+\begin{proof} (b)
+A key part of this question is that \textit{assume given the skill level of your opponent, the outcomes of the games are independent}. That is, the outcomes of the games are conditionally independent given skill level, but not necessarily generally independent. Let S be the event that you win the second game. Conditional independence gives:
+\[
+P(S \cap W \mid B) = P(S \mid B) P(W \mid B)
+\]
+\[
+P(S \cap W \mid I) = P(S \mid I) P(W \mid I)
+\]
+\[
+P(S \cap W \mid M) = P(S \mid M) P(W \mid M).
+\]
+
+For example, the first win and second win are independent if we are given the skill level of our opponent.
+
+We want to find \(P(S \mid W) = \frac{P(S \cap W)}{P(W)}\).
+\[
+P(S \cap W) = P(S, W \mid B) P(B), P(S, W \mid I) P(I), P(S, W \mid M) P(M)
+\]
+\[
+ = P(S \mid B) P(W \mid B) P(B) + P(S \mid I) P(W \mid I) P(I) + P(S \mid M) P(W \mid M) P(M).
+\]
+\[
+P(S \cap W) = (0.9)^2 (1/3) + (0.9)^2 (1/3) + (0.9)^2 (1/3) = \frac{23}{60}.
+\]
+\[
+\frac{P(S \cap W)}{P(W)} = \frac{\frac{23}{60}}{0.567} = \frac{23}{34}.
+\]
+\end{proof}
+
+\begin{proof} (c)
+Conditional independence seems more reasonable because the games aren't independent regardless of the skill level of your opponent: the player's skill level is the same for both games. If we don't know the skill level of a player but we know the outcome of the first game, the second game won't be independent because we will condition on the outcome of the first game to give us information about the possible skill level of the opponent and help us predict the second game's outcome. However, given the opponent's skill level, the two games are completely independent. 
+\end{proof}
+
+
+
+\end{document}
